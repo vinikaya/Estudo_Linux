@@ -1,0 +1,48 @@
+Gerenciando serviços no linux
+
+O systemd é o serviço init e gerenciador de sistema usado nas distribuiçções linux mais atuais.
+O sistema init inicializa os componente que devem ser iniciados após a inicialização do kernel do linux, e tambem gerencia os serviços e daemons(processo que roda em segundo plano sem interface ou terminal, normalmente espera um evento para oferecer o serviço) para o servidor a qualquer momento enquanto estiver em funcionamento. 
+Em systemd, o alvo da maioria das ações são as unidades, são recursos que o systemd sabe adiministrar. O tipo de cada unidade pode ser inferido pelo sufixo ao final do arquivo(exemplo: .service).
+
+todos os serviços que rodam no sistema estão na pasta /systemd/:
+	/usr/lib/systemd/
+
+Usando comando systemctl pode iniciar, reiniciar, parar, recarregar e etc os serviços.
+o comando systemctl reconhece que é um serviço e dispensa o uso da extenção .service.
+		
+		!!!Comandos!!!
+# - comando no terminal.
+
+#systemctl start aplication - ira iniciar a aplicação.
+#systemctl status aplicação - verifica o status do serviço
+#systemctl stop aplicação - para o serviço
+#systemctl restart aplicação - reiniciar o serviço
+#systemctl reload aplicação - recarrega os arquivos sem reinicar se o aplicativo tiver essa funcionalidade.
+#systemctl reload or restart aplicação - quando não sabe se o aplicativo recarrega sem reiniciar, se não tiver a funcionalidade ele reinicia.
+#systemctl enable aplicação - ativa a inicialização automatica ao iniciar o systema, cria um arquivo na pasta /etc/systemd/system/ com as instruções de inicialização, o systemd procura o aqruivo de inicialização nessa mesma pasta.
+#systemctl disable aplicação - desativa a inicialização automativa. Ou seja exclui o arquivo de inicialização criado na pasta /etc/systemd/system/.
+#systemctl is-active aplicação - verifica o estado especifico do serviço, retorna active ou inactive.
+#systemctl is-enabled aplicação - mostra se o serviço está habilitado para iniciar automaticamente.
+#systemctl is-failed aplicação - mostra se está funcionando corretamente ou se ocorreu um erro.
+
+	!!Comandos gerais!!
+
+#systemctl list-units - Lista todas as unidades systemd ativas no sistema. Mostra apenas unidades ativas por padrão.
+#systemctl list-units --all - Mostra qualquer unidade que o systemd carregou ou tentou, independente do seu estadoa atual.
+#systemctl list-units --all --state=inactive - filtar as unidades pelo seu estado.
+#systemctl list-units --type=service - filtra para somente serviços ativos.
+#systemctl list-unit-files - ver todos os arquivos de unidades disponiveis no systemd.
+#systemctl cat aplicação - pode ver o conteudo da unidade carregada pelo systemd.
+#systemctl list-dependencies aplicação - exibira a arvore de dependecias da unidade. Exibe uma hierarquia mapeando as dependencias que devem ser tratadas para inciar a unidade em questão.As dependecias nesse contexto, incluem as unidades que são exigidas ou deseadas pelas unidades acima dela.
+#systemctl list-dependencies --all(--reverse,--before,--after) aplicação - pode ser incluido atributos para filtrar as informações.
+#systemctl show aplicação - para ver as propriedades de baixo nivel de uma aplicação.
+#systemctl show aplicação -p Restart - usa o -p para ver uma unica propriedade.
+#systemctl mask aplicação - coloca a aplicação em estado de mask, fazendo não ser iniciavel manualmente ou automaticamente.
+#systemctl unmask aplicação - tira o status de mask.
+#systemctl edit aplicação - faz edições no arquivo de unidade do serviço. Será criado um arquivo com final .d no qual será mesclado ao arquivo original ao iniciar o systemd.
+#systemctl edit --full aplicação - mostra o arquivo de unidade atual do editor. 
+#rm -r /etc/systemd/system/aplicação.service.d - remove a edição criado com o edit.
+#rm /etc/systemd/system/aplicação.service - para remover um arquivo totalmente modificado.
+#systemctl daemon-reload - após excluir deve recarregar o systemd, para ele não fazer referencia a esses arquivos e use os originais do sistema.
+
+

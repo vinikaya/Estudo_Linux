@@ -1,0 +1,70 @@
+Oque são redes de computadores?
+	Compartilhamento de infomações e recursos.
+	
+Rede Virtualizada:
+	Modo Bridge: Entra na mesma rede de computador que as outras maquinas fisicas, como se fosse outra maquina fisica, comunica com o switch e o roteador. Mesa sendo virtual faz parte da rede inteira, conseguindo interagir com outras maquinas.
+	
+	Modo NAT: A sua placa de rede faz um roteamento para as VMS, a VM faz uma solicitação para o a maquina real e a mesma traduz e retorna, recebe um IP de sub-rede. Exp.:10.0.0.1;
+	
+	Modo Interno: As VMs nao possuem nenhuma ligação externa, somente se comunicam entre si.
+	
+Arquivo de configuração de rede /etc/network/interfaces
+	Dentro do arquivo interfaces tem:
+		-allow-hotplug - Ativa a placa de rede na inicialização.
+		-ensp0s3 - nome da interface de rede adicionado automaticamente utilziando o sistema de nomcelatura.
+		-iface - interface de rede.
+		-inet dhcp - Está especificando que o endereõ (inet) será atribuido via DHCP.
+		
+Pode ser colocado ip estatico com : iface enp0s3 inet static(e outras linhas de config).
+
+Ao termino de configurar para carregar as novas configurações entre o comando:
+	service networking restart - reinicia o serviço de rede, n precisa reiniciar a maquina inteira.
+	
+DNS fica no arquivo /etc/resolv.conf
+Hostname da maquina fica no arquivo /etc/hostname, pode ser alterado.
+
+nslookup - consulta o ip de determinado site consultando o DNS
+
+traceroute ip ou dominio - mostra em tempo real o caminho que um pacote leva até chegar ao seu destino.
+
+ss - verifica quais portas estão abertas no seu sistema linux.(-r,-t,-u,-l,-p,-n,-4,-6)
+
+
+Comandos:
+ip a - Mostra os controles de rede.
+ip -4 a - mostra ipv4 troca o "4" por "6" mostra o ipv6.
+ip r - mostra o gateway padrão
+ip -s link - mostra o trafego de rede da placa de rede.
+ifdown interface - parar a interface(placa de rede) escrevendo o nome.
+ipup interface - ativa a interface.
+dmesg - Mostra toda inicialização da maquina.
+ dmesg | grep -i network - mostra a parte de inicialização que tem o conteudo de network.
+ping ip - confere se um dispositivo da rede responde uma solicitação.
+ping -I enp0s3 www.google.com -- Escolhe a interface de rede especifica para fazer o ping.
+netstat - mostra informações da rede (instalar net-tools).
+route - mostra informações de saida da rede(gateway) e muitas outras infos.
+traceroute google.com - mostra as rotas do seu gateway até o ip pesquisado.
+
+
+!!Monitoramento!!!
+instalar o arpwatch - mostra os logs de rede
+systemctl start arpwatch@enp0s3 - inicia(no ubuntu tem que especificar a interface de rede).
+systemctl enable arpwatch - deixa disponivel
+systemclt status arpwatch - informações do serviço rodando.
+tail /var/lib/arpwatch/enp0se.dat - onde fica o arquivo para ver os logs capturados.
+
+iptraf - monitora envio de pacotes em interface e etc
+iptraf - execulta.
+
+darkstat - mostra grafico de pacotes da rede. em interface grafica na web.
+darkstat -i enp0s3 - seta a interface.
+acesso no navegador no localhost porta 667(ou ip do servidor).
+
+etherape - monitora o uso dos ips da rede.
+para rodar é só chamar o programa no terminal e abre interface grafica.
+
+ 
+	 
+ 
+ 
+ qemu - cirtualizador de maquina virtual.

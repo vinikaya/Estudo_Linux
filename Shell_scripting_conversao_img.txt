@@ -1,0 +1,88 @@
+SHELLSCRIPT
+
+Criando um script para converter arquivos de imagens jpg, pnj, etc.
+
+Instalar programa:
+	sudo apt install imagemagick-6.q16
+
+!!!!!!!!!!!!!!!	1 - Codigo Shell script que converte imagens .pnj para .jpg usando o programa 'convert'.!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	
+		#!/bin/bash  --diz qual o interpretador vai ler o codigo.
+
+
+		cd ~/Imagens/Capturas_de_tela   -- Entra na pasta na qual está as imagens.
+
+		if [ ! -d png ]   	-- verifica se existe um diretorio chamado 'png'.
+		then   			-- Caso não tenha o diretorio 'png' ira criar um.
+			mkdir png  
+		fi     			-- Após usar o 'then' usa o 'fi'.
+
+		for imagem in *.png    	-- Um loop no qual pega os termos com a extensão '.png' e colocam na variavel 'imagem'.
+		do			-- Após pegar o termo e colocar na varivel 'imagem' irá exdcutar o proximo comando.	
+			local image_ext=$(ls $imagem | awk -F. '{ print $1 }')	-- é criado a variavel 'image_ext' na qual ira conter o nome do arquivo sem a extensão(para poder salvar de maneira correta), No comando "ls $imagem | awk -F. '{ print $1 }' " o atributo 'awk -F.' pega o termo '$1'($imagem) escrito  e corta a partir do indicado '.' e faz o print na tela, assim eliminando a extenção. 
+			convert $image_ext.png png/$image_ext.jpg  		-- Usa o programa 'convert' para converter os ar imagens e gerar os novos arquivos na pasta 'png'.
+		done
+	
+	
+
+
+	2 - Continuaçao do codigo com função:
+	
+	converte_imagem(){	--Função converte imagem que ira execultar o codigo.
+		#!/bin/bash 
+
+
+		cd ~/Imagens/Capturas_de_tela   
+
+		if [ ! -d png ]   	
+		then   		
+			mkdir png  
+		fi     	
+
+		for imagem in *.png  --No lugar do '*.png' pode ser o termo escrito no terminal usando o '$1', será o primeiro termo escrito.
+	 	do			
+			local image_ext=$(ls $imagem | awk -F. '{ print $1 }')				--O termo 'local' é usado para indicar que essa variavel só é pra funcionar dentro desse escopo(função), e não ocorrer o vazamento da variavel.	
+			convert $image_ext.png png/$image_ext.jpg 
+		done
+	} --Fecha a função 'converte_imagem()'
+
+		converte_imagem 2>erros_conversao.txt		--Chama a função para a execução. O '2' se refere a mensagem de erro que é gerada caso o processo n possa ser realizado é direcionado para outro arquivo para não aparecer para o usuario final.
+		
+		if [ $? -eq 0 ]			--Para fazer a checagem se o processo foi realizado, '$?' pega o status de saida da função 'converte_imagem()' e depois usa o '-eq' para comparar o status de saido com o '0'.
+ 		then	
+        		echo "conversão realizada com sucesso" 	--Caso o status de saida for igual a '0' então será impresso essa frase.
+ 		else 
+          		echo "houve uma falha no processo" 	-- Caso o status de saida for diferente de '0' será impresso essa frase.
+  		fi      					-- Como foi aberto um 'if' deve ser fechado com um 'fi'
+		
+	!!!Ao chamar a função(linha49) foi usado o numero '2', é um descritor de arquivo, é ultilizado para acessar um arquivo ou fluxos padrões como entrada, saida, e mensagens de erros, Podem ser acessados pelos numeros '0', '1' e '2' respectivamente. No script acima a menssagem de erro foi direcionada para outro arquivo, assim não aparecendo no terminal para o usuario.
+	
+	
+	
+!!!!!!!!!!!!!!!!! codigo que converte as imagens da pasta e das subpastas comentado::!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	
+	
+		#!/bin/bash
+
+		converte_imagem(){				--Função que converte as imagens de .jpg para .png
+			local caminho_imagem=$1
+			local imagem_sem_ext=$(ls $caminho_imagem | awk -F. '{ print $1 }')
+			convert $imagem_sem_ext.jpg $imagem_sem_ext.png
+		}
+
+		varrer_diretorio(){				--Função que entra em todas as pastas e converte os arquivos.
+			cd $1					--Pegando o termo enviado na linha 80	
+			for arquivo in *
+			do
+				caminho_arquivo=$(find ~/Downloads/imagens-novos-livros -name $arquivo)	--Imprimi o comando ls e salva na variavel '$caminho_arquivo', esse comando imprimi o caminho inteiro do arquivo na variavel '$arquivo', para o codigo se localizar nas pastas certas.
+				if [ -d $caminho_arquivo ]	--se a variavel '$caminho_arquivo' for o caminho de um diretorio então ele chama novamente a função 'varrer_diretorio' entra nesse direitorio e faz novamente a checagem if -d.
+				then
+					varrer_diretorio $caminho_arquivo	
+				else
+					converte_imagem $caminho_arquivo	--caso a variavel '$caminho_arquivo' for o caminho de um arquivo ele ira chamar a função 'converter_imagem' e enviar a variavel como parametrô.
+				fi
+			done
+		}
+
+		varrer_diretorio ~/Downloads/imagens-novos-livros 
+

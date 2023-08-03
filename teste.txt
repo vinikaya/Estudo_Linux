@@ -1,0 +1,23 @@
+var x = 12344321;
+var isPalindrome = function(x) {
+    var myFunc = num => Number(num);
+        var intArr = Array.from(String(x), myFunc);
+        
+        var tm = intArr.length;
+        ult = tm-1; 
+        var j=0;
+
+        for(var i = 0; i < tm/2; i++){
+            
+            if(intArr[i] == intArr[ult]){
+                j++;
+            }
+            ult--;
+        }
+        
+        if(j == tm/2){
+            console.log(true)
+        }
+
+    }
+isPalindrome(x);

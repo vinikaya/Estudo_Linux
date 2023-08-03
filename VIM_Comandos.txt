@@ -1,0 +1,79 @@
+Como usar o Vim:
+
+
+Comandos mais usados:
+!u,!U - Desfaz ação
+!i - texto no cursor
+!a - texto após cursor
+!yy - copia linha inteira
+!dd - recorta linha inteira
+:m10 - move a linha para a linha escrita.
+!p,!P- cola 
+!( - movimento frases.
+!{ - movimento paragrafos.
+Ctrl + > - move o codigo selecionado para o lado(indentar).s
+
+
+!Esc - inicia o modo normal(Onde se coloca comando e para navegar pelo texto.)
+
+!u - desfaz ultima ação.
+!U - desfaz todas ações feitas em uma linha.
+!a - inserir texto após o cursor.
+!i - inicia o texto na posiçao do cursor.
+!o - inicia um texto uma linha abaixo do cursor.
+!I - inicia o texto no inicio da linha.
+!A - inicia o texto no fim da linha.
+!O - cria uma linha abaixo e inicia o texto.
+!v - inicia modo de seleção de texto.
+!V - inicia modo de seleção de linha inteira.
+!Ctrl + v - inicia modo de seleção retangular(seleciona texto em varias linha na mema posição).
+
+!Esc -> : - inicia entrada de comando.
+!Ctrl + o -> : - inicia modo normal de forma rapida para receber somente um comando.
+
+!h - move trás.
+!l - move frente.
+!k - move cima.
+!j - move baixo.
+!gg - Primeira linha do arquivo.
+!G - ultima linha do arquivo.
+!0 - inicio da linha.
+!$ - fim da linha.
+!w - inicio da proxima palavra
+!e - fim da palavra.
+!b - inicio da palavra anterior.
+!( - incio da proxima frase(Frases terminam com ".").
+!) - fim da proxima frase.
+!{ - inicio do proximo paragrafo.
+!} - fim do proximo paragrafo.
+!zz - centraliza a pagina em relação ao cursor.
+
+
+!yy - copia a linha inteira.
+!5 yy - copia o numero de linhas indicados a partir do cursor.
+!y$ - copia do cursor ao fim.
+!y0 - copia do cursor ao inicio.
+!yw - copia do cursor ao fim da palavra.
+!yb - copia do cursor ao inicio da palavra.
+!yiw - copia a palavra sobre o cursor.
+
+!dd - recorta a linha.
+!5 dd - recortar o numero indicados de linha.
+!diw - recorta a palavra sobre o cursor.
+
+!p - cola após o cursror.
+!P - cola antes do cursor.
+
+Modo de comandos -> :
+:q - sair.
+:q! - sair sem salvar.
+:w - salvar.
+:w nome_arquivo - salva como.
+:wq - salva e sai.
+:x - salvar e sair.
+:w !sudo tee% - salva como sudo.
+:set number! - alterna a numeraçao de linha(numera as linhas).
+:set relativenumber! - modo relativo de numeraçao de linhas.
+
+
+

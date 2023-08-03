@@ -1,0 +1,44 @@
+	!!!!!!!Estrutura de diretórios linux!!!!!
+
+Algumas pastas importantes:
+
+/etc/group - essa é a pasta onde mostra todos os grupos do sistem, pode ser alterada e adicionado usuario a grupos manualmente só alterando esse arquivo. Cat vizualiza, nano ou vi modifica.
+
+/etc/passwd - Os usuarios são criados atravez dessa pasta e nele mostra mais informações do usuario, as informações de cada usuario são em ordem: nome, X - indica senha criptografada, UID do usuario, GID do usuario, diretorio home, shell do usuario, e as virgulas ,,, são informações pessoais do usuario. Vizualisada com cat.
+
+/etc/shadow - onde armazena as senhas dos usuarios de maneira criptografada. As informações em ordem são: usuario, senha criptografada, data da ultima alteração da senha, dias até que possa alterar a senha novamente, dias até expirar a senha, dias de aviso antes de expirar a senha, alguns campos podem ser alterados.
+
+/etc/fstab - Onde fica salvo as informações de montagem de disco, pode ser alterado para criar o sistema de arquivos de uma partição em uma pasta do sistema, exemplo: nano /etc/fstab -- adiciona a descrição e a linha: #/dev/sdb1 para MP3    /dev/sdb1 /mp3 ext4 defalts 0 0 . Ao reiniciar o sistema vai ser montado o sistema de arquivo na partição sdb1 no diretorio mp3.
+
+/var/log - onde ficam os arquivos de log do sistema.
+
+
+/ - diretório raiz, todos os arquivos e diretorios partem do direotorio raiz.
+
+/bin - Onde ficam os binarios execultaveis que podem ser utilizados por qualquer usuario do sistema, exp.: cp,mv,ping etc.
+
+/sbin - Arquivos binarios execultaveis mas que são usados pelo adiministrador para manutenção ou função semelhantes.
+
+/usr - Um comando que não se encontra no /bin e /sbin provavelmente estara aqui, quando é instalado ou compilado um programa a partir do codigo fonte estara nesse repositorio.
+
+/etc - configuração do sistema, arquivos de configuração que podem ser usados por todo o sistma.
+
+/lib - onde fica localizado as bibliotecas usadas pelos comandos presente em /bin e /sbin.
+
+/opt - Arquivos adicionais que não são essenciais para o sistema.
+
+/home - Ficam os diretorios de arquivos pessoais de cada usuario, o direteorio pessoal do root fica no /root.
+
+/boot - arquivos de inicialização do sistema.
+
+/srv - Dados de servidores e serviços em execução no computador.
+
+/dev - Arquivos de partição e dispositivos, quando conecta um pendrive é criado um arquivo aqui que é usado como interface para acessar ou gerenciar o pendrive.
+
+/var - Arquivos variaveis, arquivos que podem mudar de tamanho, exp.: arquivos de log.
+
+/proc - Arquivos que mostram informações sobre recursos e processos em execução no sistema, exmp.: saber os status do processador e etc.
+
+/temp - Arquivos e diretorios criados temporariamente pelo sistema ou usuario.
+
+

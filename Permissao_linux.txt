@@ -1,0 +1,48 @@
+Permissão Linux
+
+
+ Usuário(User): É o proprietario do arquivo.
+ Grupo(Group): O grupo que é o proprietario do arquivo.
+ Outros(Other): Todos os outros usuários do sistema.
+  
+ Tipos de permissão: Leitura (r), Escrita (w), Execução (x).
+ 
+ Para ver permissões usar ls -l, a ordem das notações são:
+ 
+ 	user-group-other
+ 	
+ 	Em notação ficaria: rw-rw-r--, o "-" separa os grupos, o primeiro e de usuario depois de grupos e o ultimo são outros. Nessa notação o usuario e o grupo podem ler e escrever mas n execultar, e o outros podem somente ler.
+ 	
+!!Bits de perissão:
+	As permissões podem ser representadas por uma string de 9 bits. Exemplo: 110,110,111(aparece sem o uso da virgula).
+	Essa ordem significa:
+	User ler escrever execultar, group ler escrever execultar, other ler escrever execultar.
+	
+	Deve fazer a converção para octal, onde cada posição tem um peso, onde 111,101,001 = 7,5,1.
+	Primeiro numero tem peso 4(ler), segundo 2(escrever) e terceiro 1(execultar), para cada grupo, 100 = 4, 010 = 2, 001 = 1, 111 = 7(soma todos os pesos).
+	Exemplo: rw-r-r-- = chmod 644 "arquivo"
+	
+!!!!stat - ver informações de arquivo.
+!!!!chmod - modificar os modos de acesso.
+
+Pode modificar permissões com letras:
+	u,g,o,a(user,group,other,todos)
+	-,+,=(remover,adicionar,permissão de forma exata)
+	r,w,x(Permissões)
+	exemplo:
+		u+x - permissão de execulção para usuario
+		go+w - remove escrita de group e others
+		a=rw - define permissão de escrita e leitura, mas não execulção para todos.
+		
+	Exemplo:
+		chmod -R -v o-rwx diretorio  = remove recursivamente as permissões para os others em um diretorio.
+	
+!!!chown - usado para modificar o proprietario e ou grupo de arquivos.
+	-R modo recursivo
+	-v modo verbose
+	
+	Exemplo de uso:
+			chown -v vinicius arquivo  =  define o usuario proprietario do arquivo.
+			chown -v vinicius.group arquivo  =  define o usuario e o grupo propetario do arquivo.
+			chown .grupo arquivo  = define o grupo do arquivo.
+			

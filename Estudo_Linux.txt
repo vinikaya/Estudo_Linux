@@ -1,0 +1,206 @@
+Linux é case sensitive - Diferencia letras minusculas e maiusculas
+
+Usuarios com # são roots(permissão de adiminstrador), usuarios com $(são convidados sem permissão de adiministrador).
+
+O usuario root tem permissão privilegiada a todos os diretorios e arquivos indepedente das permissões atribuidas.
+
+Arquivo q começam com . são ocultos, para ve-los usa ls -a
+
+Ctrl + c = cancela o comando.
+
+Alt + F2 = Inicia outro terminal ao mesmo tempo, e pode ser alternado apertando Alt + F1 e vise e versa.
+  !!Ultilitario(programa)!!!
+ldd - pode ser usado para determinar quais bibliotecas são necessarias para um execultavel especifico. Exemplo de uso ldd top, dentro da pasta /bin, as informações de cada pacote em ordem: nomde do pacote, numero da versão, extensão do arquivo.
+
+dpkg - é o instalador original no debian. tem varias opções de ação(-E, -G, --configure packing e etc).
+dpkg --get-selections - Mostra todos os pacotes instalados no sistema operacional com dpkg.
+dpkg -s nano - mostra todo o status do programa no sistema.
+
+
+apt - usa o nome dos pacotes, busca em fontes como cd-roms e sites ftp. pode instalar procurar e remover pacotes.
+
+apt remove nome- desinstala o programa(mas deixa pequenos arquivos de confg, para caso de desisntalação acindetal).
+apt purge nome- desinstala completamente um programa no sistema.
+apt search pacote - pesquisa os pacotes disponiveis para download.
+apt autoremove - remove os pacotes que foram instalados automaticamente e não são mais usados por nenhum programa.(somente os dois termos para execultar).
+aliem - permite uso de pacotes n debian, como rpm do redhat. Faz a conversão de tipos de arquivos compativeis para outros sistemas.(.rpm, .deb etc).
+
+apt search programa | grep "instalado" - mostra se o programa está instalado no sistema.
+dpkg -l | grep programa - mostra os pacotes instalados no sistema e filtra o programa desejado com grep.
+
+
+logout - para sair do usuario atual.
+
+		
+     !!!   Comandos !!!
+ 
+ 
+which programa - usado para saber a pasta na qual o programa está instalado.
+help comando - imprimi um pequeno manual do camando, só funciona para alguns comandos.
+echo "texto"- faz impressão no terminal do texto escrito entre "".
+echo "texto" > arquivo.txt - salvo o texto escrito no arquivo direcionado apagando o conteudo anterior.
+echo "texto" >> arquivo.txt - salvo o texto escrito no arquivo direcionado conservando o conteudo anterior, gravado na ultima linha.
+man 'comando' - retorna toda a documentação do comando desejado(escrito).
+bc <<< 4/2 -- faz conta matematica no terminal, nesse caso divisão de 4 divido por 2.
+bc <<< "scale=2;4/2" -- faz a conta matematica e mostra 2 casas decimais. 
+head - mostra as 10 primeiras linhas do arquivo.
+less - permite ler todo o arquivo no terminal navegando pra cima e pra baixo. q = quit.
+tail - mostra as 10 ultimas linhas do aqruivo.
+pwd - imprimio diretorio atual.
+ls - lista o conteudo do diretorio
+cd - entra no diretorio escolhido
+cd .. - Volta ao diretorio anterior
+cd / - volta ao diretorio padrão do sistema.
+ls|more - Quando tem muitas linhas de texto e ultrapassa a tela, usa esse para vizualisar tudo.
+ls *.mp3 - é usado para listar arquivos que tem esse termo texto escrito no nome, pode ser qualquer um(.jpg, .conf ...).
+cat - Leitura de um arquivo.
+cp - copia de arquivo.
+cp -r - faz a copia de diretorios.
+mv - move arquivos e diretorios.
+rm - apagar arquivo.
+history - mostra o historico de pesquisa.
+!c - execulta o comando mais recente começado com c.
+!20 - Execulta o comando numero 20(visto no comando history).
+touch - usado para criar arquivos, pode criar vario de uma vez.
+touch - modifica a data e hora de acesso e modificação do arquivo.(touch -t, touch -m).
+
+ps - mostra informações de logs.(ps -a,-u,-f, etc).
+top - mostra processos do sistema.
+top -u vinicius - mostra somente os processos desse usuario.
+	Ao precionar 'd' quando estiver rorando o top pode mudaar o tempo de atualização das informações.
+kill 64565 - para o processo pelo pid.
+kill -9 24234 - o '-9' força a finalização do programa.
+killall programa- mata todos os processos de um mesmo programa.
+free - exibe a quantidade de memoria livre e usada no sistema.
+shutdown -h now - serve para desligar a maquina na hora.
+
+Ao rodar um processo no terminal o mesmo fica travado, exemplo "top" ou "firefox", usa Ctrl+z para pausar o processo e destravar o terminal, usando comando "jobs" vê os processos rodando e parados no bash, para colocar o processo para rodar em background(destravando o terminal) usa bg 1(numero do processo q aparece no jobs) e para voltar a rodar no terminal usa fg 1 e trava o terminal novamente.
+
+Ao criar um programa pelo terminal com o "gedit oi &(dentro coloca: echo "oi, tudo bem"). para rodar esse programa usa ./oi, para rodar somente colando o nome do programa deve ser adicionado a pasta na qual está ao PATH: PATH=$PATH:/home/vinicius/workspace/, usando o "env" podemos ver todas as variaveis do sistema incluindo o path, usasse só env | grep PATH, mostrará a pasta adicionada. Ao fechar o terminal reseta. Deve ser criado um scrip para adicionar ao path ao abrir o bash.
+
+Para salvar toda vez que iniciar um termianl editasse o .bashrc: gedit .bashrc & e cole ao final o PATH=$PATH:/home/vinicius/workspace/
+, toda vez que o terminal for iniciado irá adicionar o workpace ao PATH.
+
+PS1="vinicius" - altera o nome que é mostrado no terminal.
+
+adduser - adiciona usuario.
+userdel - deleta usuarios.
+passwd "nome_usuario" - troca ou defini uma nova senha ao usuario.
+logname - mostra o usuario logado.
+users - mostra os usuarios contectados no sistema.
+
+groupadd - cria novo grupo.
+adduser usuario grupo - adiciona usuario a um grupo.
+groups usuario - mostra qual o grupo do usuario.
+
+cat /etc/group - essa é a pasta onde mostra todos os grupos do sistem, pode ser alterada e adicionado usuario a grupos manualmente só alterando esse arquivo.
+
+find - raliza buscas de arquivos pelo seu nome;
+find . - lista todos os diretorios e subdiretorios da pasta atual;
+find . -type d(ou f) -lista somente arquivos ou diretorios.
+
+locate - faz busca de arquivos, somente mostra os dados que o usuario tem permissão para acesso. Antes de usar tem que usar o updatedb(faz atualização da arvore de arquivos).
+
+grep - pesquisa pelo conteudo dos arquivos,
+	(--color muda a cor do texto localizado,
+	-n mostra qual a linha do texto localizado, 
+	-i não usa o case sensitive, -r pesquisa no diretorio atual e nos subdiretorios, 
+	-w elimina os resultados com numeros, 
+	-c conta o numero de ocorrencias da string, 
+	-o trás somente os itens que batem com o pesqusisado, 
+	-B 3 mostra a quantidade N de linhas antes da ocorrencia pesquisada, 
+	-A 4 mostra a quatidade N de linhas depois da ocorrecia pesquisada,
+	-C mostra as N linhas antes e depois.
+	-l mostra somente o arquivo e não a string, 
+	-L retorna os arquivos que não possuem a string pesquisada, 
+	-E faz a busca com expressões regulares EXP: grep -E -i "teste|Humberto" teste1.txt  significa teste ou humberto,
+	. ser para substituir uma palavra igual o * exp: grep -E -lir ".ste|humberto" /root,
+	| pode usar junto como o pipe exp: cat teste2.doc | grep -i araras com o cat ele mostra o conteudo e com o grep ele mostra só o conteudo que busco que no caso é araras,
+	).
+	Exemplos de uso:
+		grep [0-9] -- exibe somente as linhas com numeros, dispensando cabeçalhos.
+		grep -inr --color teste /root - ele vai retornar as pastas e arquivos q possuem a palavra teste dentro da pasta root,
+		cat teste1.txt | grep -i vinicius -- ele vai ler o arquivo teste1.txt e vai retornar somente a palavra vinicius.
+		grep -in humberto teste1.txt - procura a palavra humberto dentro do arquivo teste1.txt e mostra o numero da linha.
+		ls /diretorio | grep --color user - vai listar todos os dados que possuem "user" e destacalo de outra cor.
+		
+Tar - Tape archive faz o empacotamento com a exetensão .tar, n mexe nos arquivos atuais.
+	-c cria um novo arquivo .tar
+	-t exibe o conteudo do arquivo .tar
+	-r adiciona arquivo a um arquivo .tar já exitente
+	-f permite especificar o arquivo tar a ser ultilziado,
+	-v exbe detalhes da operação,
+	-w pede a confirmação antes de cada ação no comando,
+	-x extrai arquivos de um arquvio tar exixtente.
+
+zip -rq nome.zip diretorio - informando o nome do arquivo gerado e o diretorio a compactar. '-r' compacta diretorio, '-q' retira as infomações de compactação do terminal.
+unzip arquivo.zip - descompacta arquivo, '-r' descompacta diretorio, '-l' lista os arquivos compactados.
+bzip2 - faz a compactação e desempacotação arquivos .bz2,
+
+gzip e gunzip - faz a compactaçõa e desempacotação arquivos .gz
+
+fdisk manipula os discos e partições logicas e fisicas.
+	-l mostra os discos fisicos e as partições.
+	-m mostra os comandos,
+	
+	exemplo: fdisk /dev/sdb - chama o disco fisico sda para configuração(deve ser consultado os discos da maquina usando o fdisk -l).
+
+mkfs - cria sistema de arquivo,
+	-c verifica a existencia de bad clocks antes de criar o arquivo,
+	-L define o rotulo para o sistema de arquivo,
+	-q usa o mkfs em modo silencioso, resultando em uma saida bastante reduzida,
+	-j cria um arquvio jornal ext3
+
+df -h -mostra onde em qual pasta está montada os partições.
+
+mount - cria sistemas de arquivo, mas sistemas criados manualmente são desfeitos ao reiniciar, para salvar ao reiniciar deve alterar a pasta /etc/fstab.
+	
+umount - faz a desmontagem do sistema de arquivo  liberando a partição. exemplo: umount /mp3.
+
+df - mostra informações gerais sobre a ultilização do disco para sistemas de arquivos montados em arquivo.
+
+
+
+du - exibe informações de ltilização de disco para o diretorio, se n informar o diretorio mostra do diretorio atual.
+	-a mostra todos os arquivs, e não apenas diretorios,
+	-h exibe resultados em formato legicel, sufixos M(megabytes e G(gigabytes),
+	-s exibe um resumo para cada um dos diretorios esoecificados , em vez de totatis para subdiretorios encontrados recursivamente,
+	-S exclui subdiretorios de contagens e de totais, limitando os totais ao diretorios.
+	-c soma o espaço de todos os dados dos diretorios,
+	
+	
+#fsck - verifica se há erros nos sistemas de arquivos e, opicionalmente, os corrige.
+	-A roda as verificações em todos os sistemas de arquivos especificados em /etc/fstab. esta opção é para uso no momento do boot, antes de os sistemas de arquivos serem montados,
+	-N Não executa mas mostra oque será feito,
+	-t tipo  especifica o time de sistema de arquivo a ser verificado, o padrão é o ext,
+	-c verifica se há bad blocks no disco, verifica se tem setor danificado,
+	-f força uma verificação, mesmo que o sistema de arquivo pareça ok,
+	-p repara automaticamente o sistema de atquivo, sem pedir confirmação ao usuario.
+	-y respode "yes" a todo os prompts interativos.
+	Exemplo: fsck -c /dev/sdb2 - verifica o disco sdb2 se há bad blocks.
+
+
+
+	!!!Cron!!!
+	Automatiza uma ação repetitiva.
+	
+O arquivo cron fica em:
+#nano /etc/crontab
+
+tzselect - para configurar o timezone do servidor.
+	
+	
+	!!!Backups!!!
+Criar backups simples:
+caso for criar em um disco removivel use o comando "#df -h" para ver as partições do sistema e ver em qual diretorio está montado o disco removivel que foi aclopado no sistema.
+
+Para copiar a pasta(backup):
+	cp -auv /diretorio_copia/ /diretorioPendrive/ - o atributo "a" faz a copia de forma recursiva dos arquvios, "u" diz ao cp para copiar somente os arquivos mais recentes doque o que estão no diretorio, "v" mostra todas as ações que estão sendo feitas. são as 3 opções que podem ser usadas.
+	
+	Pode usar o crontab para automatizar o backup.
+	
+	
+	
+	
+	
+

@@ -1,0 +1,32 @@
+!!!Conexão SSH!!!!!!!
+apt-get install openssh-server - instala o servidor para fazer a conexão, normalmente o client já vem instalado.
+Não pode fazer a conexão com o usuario root por padrão.
+
+Arquivo de configuração do ssh nano /etc/ssh/sshd_conf.	
+	
+	!!!!!Autenticação via chave publica e privada!!!!!!
+	 as chaves são geradas na maquina local, a chave publica pe enviada ao servidor a ser acessado via ssh e a chave privada fica na maquina na qual ira acessar o servidor.
+	
+	ssh-keygen -t rsa - cria a chave por padrão com 2048 bytes. Por padrão salva na pasta .ssh/id_rsa(privada), chave publica .ssh/id_rsa.pub.
+	
+	Depois de criada deve acessar a pasta onde estão as chaves e enviar a chave publica ao servidor:
+		scp .ssh/id_rsa.pub vinicius@169.254.6.197:/home/vinicius/ - ao final escolher o diretorio no qual vai ficar a chave.
+		
+	Ao mandar o arquivo ao servidor, deve ser mudado o diretorio do arquivo para o .ssh/authorized_keys.
+	
+	Mudar o arquivo /etc/ssh/sshd.config e apagar o #da linha de Authorized_keys e pubkeyAuthentication yes.
+	
+	restartar o serviço ssh com /etc/init.d/ssh restart 
+	
+	se tudo deu certo ira acessar sem pedir senha.
+	
+!!!Para monitorar os Logs de acesso em tempo real usar: 
+	tail -f /var/log/auth.log
+	ou usar cat para ver os logs anteriores.
+	
+!!!TCP Wrappers !!!!! permitir ou negar acesso aos serviços
+	
+
+
+
+	

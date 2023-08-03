@@ -1,0 +1,17 @@
+Codigo que faz a verificação do formato de um Ip(numero de caracteres, numero ou letra) usando Expressões regulares(regex, linha 8).
+
+
+1 #!/bin/bash                                                                 
+  2 
+  3 cd ~/workspace/
+  4 
+  5 regex="\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" -- é uma expressão regex que faz a verificação do padrão de ip.
+  6 
+  7 if [[ $1 =~ $regex ]] -- se o termo enviado pelo terminal atender a expressão regular regex então será valido e fará a busca.
+  8 then
+  9         cat apache.log | grep $1
+ 10 else
+ 11         echo "Formato não é valido"
+ 12 fi
+ 13 
+
