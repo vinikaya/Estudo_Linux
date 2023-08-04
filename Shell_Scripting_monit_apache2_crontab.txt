@@ -1,0 +1,29 @@
+ShellScript, crontab, apache2
+
+Após fazer o script monitoracao_apache.sh foi colocado para rodar no arquivo 'crontab' ( execulta comandos e scripts de maneira automatica conforme programado):
+	sudo crontab -e    --'-e' siginifica que é para editar o arquivo. Colocar a linha de execução do script:
+	*/2 * * * * /home/vinicius/Scripts/monitoracao_servidor.sh
+	 
+!!!!!Atenção!!!
+	Ao colocar no crontab prestar atenção na primeira linha do script deve ser #!/bin/bash.
+	O arquivo crontab deve rodar pelo usuario root, pode verificar pelo arquivo de log(sudo crontab -e):
+		tail -f /var/log/syslog | grep CRON - A linha onde roda o script deve estar com '(root)'. Caso não esteja remova o arquivo crontab logado no usuario que está rodando:
+			crontab -l - remove o arquivo crontab, depois só criar outro.
+		
+	Oque foi feito no arquivo "monitoracao_servidor.sh":
+	Para monitorar foi puxado o http_code demonstrado no codigo e comparado com '200' (200 = servidor funcionando) caso fosse diferente então será enviado um email para o adm e execultado um comando para reiniciar o servidor.
+	Para configurar o envio de email, foi baixado dois programas ssmtp e mailutil, foi configurado o arquivo do ssmtp /etc/ssmtp/ssmtp.conf e colocado as seguintes infos:
+					root=viniciuskaya87@gmail.com	-- email que enviara a mensagem
+					mailhub=smtp.gmail.com:587	-- A porta na o gmail usa para enviar email.
+					AuthUser=viniciuskaya87@gmail.com  -- O email para fazer login
+					AuthPass=cdouyencbitaknoa	-- A senha do email( foi gerada uma senha de App no google pois a conta tem verificação de duas etapas).
+					UseSTARTTLS=yes			-- Habilitando protocolo de criptografia.
+	
+	Após configurar o ssmtp.conf foi usado o mailutil no script para enviar o script:
+		mail -s "Titulo do email" mail@gmail.com<<del mensagem do corpo do email. del --Após o titulo é o email no qual enviara a mensagem e é usado << para colocar a mensagem no corpo do email e o 'del' é somente um delimitador da mensagem, mas pode ser usado qualquer termo, somente deve ser o mesmo termo para abrir e fechar a mensagem.
+	Após é execultado o comando para reiniciar o servidor.
+	
+	
+	
+
+	
